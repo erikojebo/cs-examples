@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Examples.HashTable;
 using NUnit.Framework;
 
 namespace Examples
@@ -11,6 +13,7 @@ namespace Examples
     {
         // Equals
         // GetHasCode
+        // Equals for class vs struct
         // ReferenceEquals
         // object.Equals(a,b)
         // EqualityComparer / EqualityComparer<T>
@@ -62,35 +65,27 @@ namespace Examples
         }
 
         [Test]
+        public void Things_get_funky_if_you_dont_override_GetHashCode_when_overriding_Equals()
+        {
+            var table = new SimplifiedHashTable<ObjectWithCustomEqualsButDefaultHashCode, string>(9);
+
+            var a = new ObjectWithCustomEqualsButDefaultHashCode("abc");
+            var b = new ObjectWithCustomEqualsButDefaultHashCode("abc");
+
+            table[a] = "original value";
+            table[b] = "modified value";
+
+            Assert.AreEqual("modified value", table[a]);
+        }
+
+        [Test]
         public void Equality_operator_can_be_overridden()
         {
-            
+            var a = new CustomEqualsOperatorObject(1);
+            var b = new CustomEqualsOperatorObject(1);
         }
 
     }
 
-    public class CustomEqualsObject
-    {
-        public int I { get; set; }
-
-        public CustomEqualsObject(int i)
-        {
-            I = i;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return I == ((CustomEqualsObject)obj).I;
-        }
-
-        public static bool operator==(CustomEqualsObject a, CustomEqualsObject b)
-        {
-            return a.Equals(b);
-        }
-        
-        public static bool operator!=(CustomEqualsObject a, CustomEqualsObject b)
-        {
-            return !(a == b);
-        }
-    }
+    
 }

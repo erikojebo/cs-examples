@@ -43,7 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EqualsExamples.cs" />
+    <Compile Include="1_objects\ObjectWithCustomEqualsButDefaultHashCode.cs" />
+    <Compile Include="1_objects\CustomEqualsObject.cs" />
+    <Compile Include="1_objects\CustomEqualsOperatorObject.cs" />
+    <Compile Include="1_objects\EqualsExamples.cs" />
+    <Compile Include="1_objects\HashTable\HashTableTests.cs" />
+    <Compile Include="1_objects\HashTable\SimplifiedHashTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
