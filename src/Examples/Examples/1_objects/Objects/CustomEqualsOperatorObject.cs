@@ -18,11 +18,10 @@ namespace Examples
 
         public static bool operator ==(CustomEqualsOperatorObject a, CustomEqualsOperatorObject b)
         {
-            if (a == null && b == null)
+            // Do NOT check a == null here...
+            if (ReferenceEquals(a, b))
                 return true;
-            if (a == null)
-                return false;
-            if (b == null)
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
                 return false;
 
             return a.Value == b.Value;

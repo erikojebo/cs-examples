@@ -9,6 +9,7 @@ namespace Examples
             Value = value;
         }
 
+        // Exceptions should never be thrown inside an Equals implementation
         public override bool Equals(object obj)
         {
             var other = obj as CustomEqualsObject;

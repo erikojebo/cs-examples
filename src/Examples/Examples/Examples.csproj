@@ -43,17 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="1_objects\ClassStructRefOutExamples.cs" />
+    <Compile Include="1_objects\Objects\CustomToStringObject.cs" />
     <Compile Include="1_objects\Objects\ObjectWithCustomEqualsButDefaultHashCode.cs" />
     <Compile Include="1_objects\Objects\CustomEqualsObject.cs" />
     <Compile Include="1_objects\Objects\CustomEqualsOperatorObject.cs" />
     <Compile Include="1_objects\EqualsExamples.cs" />
     <Compile Include="1_objects\HashTable\HashTableTests.cs" />
     <Compile Include="1_objects\HashTable\SimplifiedHashTable.cs" />
+    <Compile Include="1_objects\Objects\ObjectWithoutEqualsOverride.cs" />
+    <Compile Include="1_objects\Objects\SomeClass.cs" />
+    <Compile Include="1_objects\Objects\SomeStruct.cs" />
+    <Compile Include="1_objects\Objects\StructWithWeirdEquals.cs" />
+    <Compile Include="1_objects\RefOutAlternatives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
