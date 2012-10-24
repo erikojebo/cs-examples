@@ -56,6 +56,7 @@
     <Compile Include="1_objects\Objects\SomeStruct.cs" />
     <Compile Include="1_objects\Objects\StructWithWeirdEquals.cs" />
     <Compile Include="1_objects\RefOutAlternatives.cs" />
+    <Compile Include="2_refandvalue\BoxingAndUnboxingExamples.cs" />
     <Compile Include="2_refandvalue\ReferenceAndValueTypesExamples.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
