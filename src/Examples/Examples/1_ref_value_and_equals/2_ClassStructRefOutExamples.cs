@@ -46,10 +46,29 @@ namespace Examples
             // This would not be allowed:
             // SomeStruct s;
 
-            ModifyRef(ref s);
+            ModifyWithRefKeyword(ref s);
 
             Assert.AreEqual(123, s.X);
             Assert.AreEqual(2, s.Y);
+        }
+
+        [Test]
+        public void Passing_a_reference_type_as_ref_allows_the_method_to_change_the_actual_reference_and_not_just_the_referenced_object()
+        {
+            var s1 = new SomeClass(1, 2);
+            var s2 = s1;
+
+            Assert.AreSame(s1, s2);
+
+            // DON'T DO THIS!
+            ReferenceAnotherObject(ref s1);
+
+            Assert.AreNotSame(s1, s2);
+        }
+
+        private void ReferenceAnotherObject(ref SomeClass s)
+        {
+            s = new SomeClass(4, 5);
         }
 
         private void Modify(out SomeStruct s)
@@ -63,7 +82,8 @@ namespace Examples
             s = new SomeStruct(123, 2);
         }
 
-        private void ModifyRef(ref SomeStruct s)
+        // Cant be called Modify, since you can't have one overload with out and one with ref
+        private void ModifyWithRefKeyword(ref SomeStruct s)
         {
             // These changes do actually affect the original value
             s.X = 123;
