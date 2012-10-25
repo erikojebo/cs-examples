@@ -1,10 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Examples._2_refandvalue
+namespace Examples
 {
     [TestFixture]
-    public class BoxingAndUnboxingExamples
+    public class _3_BoxingAndUnboxingExamples
     {
         [Test]
         public void Boxing_Creates_A_New_Object_But_Doesnt_referr_To_The_Old_Value_Type_By_Ref()

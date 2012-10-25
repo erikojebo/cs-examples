@@ -7,7 +7,7 @@ using System.Linq;
 namespace Examples
 {
     [TestFixture]
-    public class EqualsExamples
+    public class _5_EqualsExamples
     {
         // Equals
         // GetHashCode
@@ -16,8 +16,6 @@ namespace Examples
         // object.Equals(a,b)
         // EqualityComparer / EqualityComparer<T>
         // ToString
-        // GetType
-        // MemberwiseClone
 
         [Test]
         public void An_object_equals_itself()
@@ -151,6 +149,18 @@ namespace Examples
             var a = new CustomEqualsOperatorObject(1);
             var b = new CustomEqualsOperatorObject(1);
 
+            Assert.IsFalse(ReferenceEquals(a, b));
+        }
+
+        [Test]
+        public void Reference_equals_for_value_types_is_very_strange_and_should_be_avoided()
+        {
+            int a = 1;
+            int b = 1;
+
+            // ReferenceEquals boxes a as the first parameter and a as the second parameter,
+            // which makes the boxes different
+            Assert.IsFalse(ReferenceEquals(a, a));
             Assert.IsFalse(ReferenceEquals(a, b));
         }
 

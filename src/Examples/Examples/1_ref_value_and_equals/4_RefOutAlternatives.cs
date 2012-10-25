@@ -3,7 +3,7 @@
 namespace Examples
 {
     [TestFixture]
-    public class RefOutAlternatives
+    public class _4_RefOutAlternatives
     {
         [Test]
         public void Out_is_used_when_parsing_values_in_the_base_class_library_to_handle_multiple_return_values()

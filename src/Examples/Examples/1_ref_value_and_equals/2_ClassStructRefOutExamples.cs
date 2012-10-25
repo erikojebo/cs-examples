@@ -3,7 +3,7 @@
 namespace Examples
 {
     [TestFixture]
-    public class ClassStructRefOutExamples
+    public class _2_ClassStructRefOutExamples
     {
         [Test]
         public void Structs_are_passed_by_value()

@@ -1,10 +1,10 @@
 ﻿using System.Text;
 using NUnit.Framework;
 
-namespace Examples._2_refandvalue
+namespace Examples
 {
     [TestFixture]
-    public class ReferenceAndValueTypesExamples
+    public class _1_ReferenceAndValueTypesExamples
     {
         [Test]
         public void Ref_Type_Can_Be_Assigned_To_Other_Instance_Are_Same()
