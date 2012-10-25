@@ -14,6 +14,7 @@ namespace Examples
 
             var sbTwo = sbOne;
 
+            //Refererar  samma underliggande värde
             Assert.AreSame(sbOne, sbTwo);
         }
 
@@ -24,8 +25,12 @@ namespace Examples
 
             var sbTwo = sbOne;
 
+            //Vi ändrar sbOne...
             sbOne.Append("Done soon?");
 
+            //Och sb2 ändras också.
+            Assert.AreEqual(sbOne, sbTwo);
+            //Och båda variablerna delar fortfarande referens.
             Assert.AreSame(sbOne, sbTwo);
         }
 
@@ -36,19 +41,23 @@ namespace Examples
 
             var sbTwo = sbOne;
 
+            //först variabeln assignas om och får en ny address
             sbOne = new StringBuilder();
 
+            //Nu delar variablerna inte längre samma underliggande referens.
             Assert.AreNotSame(sbOne, sbTwo);
         }
 
         [Test] public void Value_Types_Only_Copy_Data_At_A_Specific_Moment()
         {
+            //Värdetyper bryr sig bara om datat i det specifika tilldelningsögonblicket.
             int a = 6;
 
             int b = a;
 
             a = 8;
 
+            //b är fortafarnde 6.
             Assert.AreEqual(6, b);
         }
 
@@ -60,6 +69,7 @@ namespace Examples
 
             var str2 = str;
 
+            //Variablerna delar referens
             Assert.AreSame(str, str2);
         }
 
@@ -70,9 +80,10 @@ namespace Examples
 
             var str2 = str;
 
+            //returnerar ett helt nytt string-objekt.
             str += " Again";
 
-            //str2 is still just "Hello World"
+            //str2 is still just "Hello World" då första referensen ändras och får en ny address.
             Assert.AreNotSame(str, str2);
         }
     }
