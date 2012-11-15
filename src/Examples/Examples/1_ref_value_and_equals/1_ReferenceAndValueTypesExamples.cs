@@ -42,10 +42,11 @@ namespace Examples
             var sbTwo = sbOne;
 
             //först variabeln assignas om och får en ny address
-            sbOne = new StringBuilder();
+            sbOne = new StringBuilder("Still doing the studiecirkel");
 
             //Nu delar variablerna inte längre samma underliggande referens.
             Assert.AreNotSame(sbOne, sbTwo);
+            Assert.AreEqual(sbOne.ToString(), sbTwo.ToString());
         }
 
         [Test] public void Value_Types_Only_Copy_Data_At_A_Specific_Moment()
