@@ -58,14 +58,15 @@
     <Compile Include="1_ref_value_and_equals\4_RefOutAlternatives.cs" />
     <Compile Include="1_ref_value_and_equals\3_BoxingAndUnboxingExamples.cs" />
     <Compile Include="1_ref_value_and_equals\1_ReferenceAndValueTypesExamples.cs" />
+    <Compile Include="2_types_and_generics\2_creating_a_generic_class.cs" />
+    <Compile Include="2_types_and_generics\1_why_generics.cs" />
+    <Compile Include="2_types_and_generics\Validation\IValidationRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="2_types_and_generics\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
