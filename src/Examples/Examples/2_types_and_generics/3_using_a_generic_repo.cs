@@ -79,6 +79,7 @@ namespace Examples._2_types_and_generics
         }
     }
 
+    #region Regular Interface Repo
     public interface IRepository<T>
     {
         void Add(T t);
@@ -86,6 +87,7 @@ namespace Examples._2_types_and_generics
         List<T> FindAll();
     }
 
+    //Concrete implementation for a certain type
     public class UserRepository : IRepository<User>
     {
         private List<User> _FakeUserRepo = new List<User>();
@@ -112,7 +114,10 @@ namespace Examples._2_types_and_generics
     {
         public int Id { get; set; }       
     }
+    #endregion
 
+    #region Base Repo Class with Type Constraint
+    //This way we can get ALL our entities in a domain model through a simple base class repo of T
     public class Repository<T> where T : EntityBase
     {
         private List<T> _repo = new List<T>();
@@ -144,4 +149,6 @@ namespace Examples._2_types_and_generics
     {
         public string Name { get; set; }
     }
+    #endregion
+
 }
