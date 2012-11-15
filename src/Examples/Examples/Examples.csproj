@@ -60,6 +60,7 @@
     <Compile Include="1_ref_value_and_equals\1_ReferenceAndValueTypesExamples.cs" />
     <Compile Include="2_types_and_generics\2_creating_a_generic_class.cs" />
     <Compile Include="2_types_and_generics\1_why_generics.cs" />
+    <Compile Include="2_types_and_generics\3_using_a_generic_repo.cs" />
     <Compile Include="2_types_and_generics\Validation\IValidationRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
