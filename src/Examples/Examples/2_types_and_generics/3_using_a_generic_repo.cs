@@ -84,9 +84,12 @@ namespace Examples._2_types_and_generics
             var found1 = items[0];
             var found2 = items[1];
 
+            var firstItem = entityRepo.FindById(1);
+
             Assert.AreEqual(2, items.Count);
             Assert.AreEqual(item1, found1);
             Assert.AreEqual(item2, found2);
+            Assert.AreEqual(item1, firstItem);
 
         }
 
