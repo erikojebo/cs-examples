@@ -8,6 +8,7 @@ namespace Examples._2_types_and_generics
     public class _3_using_a_generic_repo
     {
 
+        #region Generic Repo tests
         [Test]
         public void We_can_add_user_through_our_generic_repo()
         {
@@ -33,7 +34,9 @@ namespace Examples._2_types_and_generics
            
             Assert.AreEqual(3, actual);
         }
+        #endregion 
 
+        #region Type Constrainded tests
         [Test]
         public void We_can_put_type_constraints_on_our_generic_structures()
         {
@@ -66,7 +69,9 @@ namespace Examples._2_types_and_generics
             Assert.AreEqual("Useless Part", actual.ItemName);
             Assert.AreEqual("Parts", actual.Category);
         }
+        #endregion
 
+        #region Subclassing
         [Test]
         public void Subclassing_helps_us_with_cases_specially_tailored_to_a_certain_type()
         {
@@ -92,6 +97,7 @@ namespace Examples._2_types_and_generics
             Assert.AreEqual(item1, firstItem);
 
         }
+        #endregion
 
         //[Test]
         //public void Type_constraint_hinders_us_from_using_other_types()
