@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using NUnit.Framework;
 
-namespace Examples
+namespace Examples._2_types_and_generics
 {
     [TestFixture]
-    public class why_generics
+    public class _1_why_generics
     {
         [Test]
         public void Dot_NET_1_collections_were_untyped()
