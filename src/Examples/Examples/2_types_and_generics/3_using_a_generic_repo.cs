@@ -10,7 +10,7 @@ namespace Examples._2_types_and_generics
 
         #region Generic Repo tests
         [Test]
-        public void We_can_add_user_through_our_generic_repo()
+        public void _1_We_can_add_user_through_our_generic_repo()
         {
             var userRepo = new UserRepository();
 
@@ -22,7 +22,7 @@ namespace Examples._2_types_and_generics
         }
 
         [Test]
-        public void We_also_get_the_whole_list_of_typed_objects_back_from_repo()
+        public void _2_We_also_get_the_whole_list_of_typed_objects_back_from_repo()
         {
             var userRepo = new UserRepository();
 
@@ -38,7 +38,7 @@ namespace Examples._2_types_and_generics
 
         #region Type Constrainded tests
         [Test]
-        public void We_can_put_type_constraints_on_our_generic_structures()
+        public void _3_We_can_put_type_constraints_on_our_generic_structures()
         {
             var entityRepo = new Repository<Person>();
 
@@ -56,7 +56,7 @@ namespace Examples._2_types_and_generics
         }
 
         [Test]
-        public void But_we_can_still_act_on_derived_types_own_members()
+        public void _4_But_we_can_still_act_on_derived_types_own_members()
         {
             var entityRepo = new Repository<StockItem>();
 
@@ -73,7 +73,7 @@ namespace Examples._2_types_and_generics
 
         #region Subclassing
         [Test]
-        public void Subclassing_helps_us_with_cases_specially_tailored_to_a_certain_type()
+        public void _4_Subclassing_helps_us_with_cases_specially_tailored_to_a_certain_type()
         {
             var entityRepo = new ItemRespository();
 
