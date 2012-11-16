@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Examples
+namespace Examples._2_types_and_generics
 {
     [TestFixture]
-    public class Creating_a_generic_class
+    public class _2_generic_validation_rules
     {
         [Test]
         public void Here_is_an_example_of_applying_validation_rules_to_a_bunch_of_validation_rules_for_integers()
