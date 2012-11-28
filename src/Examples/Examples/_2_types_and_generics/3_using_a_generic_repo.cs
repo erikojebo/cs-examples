@@ -95,16 +95,15 @@ namespace Examples._2_types_and_generics
             Assert.AreEqual(item1, found1);
             Assert.AreEqual(item2, found2);
             Assert.AreEqual(item1, firstItem);
-
         }
         #endregion
 
-        //[Test]
-        //public void Type_constraint_hinders_us_from_using_other_types()
-        //{
-        //    //No go
-        //    var repo = new Repository<User>();
-        //}
+        [Test]
+        public void Type_constraint_hinders_us_from_using_other_types()
+        {
+            ////No go
+            //var repo = new Repository<User>();
+        }
     }
 
     #region Regular Interface Repo

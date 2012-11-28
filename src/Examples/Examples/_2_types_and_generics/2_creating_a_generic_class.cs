@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Examples._2_types_and_generics
@@ -9,10 +10,10 @@ namespace Examples._2_types_and_generics
         [Test]
         public void Here_is_an_example_of_applying_validation_rules_to_a_bunch_of_validation_rules_for_integers()
         {
-            var rules = new IntegerValidationRuleCollection();
+            var rules = new ValidationRuleCollection<double>();
 
-            rules.Add(new PositiveIntegerValidationRule());
-            rules.Add(new EvenIntegerValidationRule());
+            rules.Add(new PositiveValidationRule());
+            rules.Add(new EvenValidationRule());
 
             Assert.IsTrue(rules.IsValid(2));
             Assert.IsTrue(rules.IsValid(4));
@@ -24,16 +25,16 @@ namespace Examples._2_types_and_generics
         }
     }
 
-    public class IntegerValidationRuleCollection
+    public class ValidationRuleCollection<T>
     {
-        private readonly IList<IIntegerValidationRule> _rules = new List<IIntegerValidationRule>();
+        private readonly List<IValidationRule<T>> _rules = new List<IValidationRule<T>>();
 
-        public void Add(IIntegerValidationRule rule)
+        public void Add(IValidationRule<T> rule)
         {
             _rules.Add(rule);
         }
 
-        public bool IsValid(int value)
+        public bool IsValid(T value)
         {
             foreach (var rule in _rules)
             {
@@ -45,22 +46,22 @@ namespace Examples._2_types_and_generics
         }
     }
 
-    public interface IIntegerValidationRule
+    public interface IValidationRule<T>
     {
-        bool IsValid(int value);
+        bool IsValid(T value);
     }
 
-    public class EvenIntegerValidationRule : IIntegerValidationRule
+    public class EvenValidationRule : IValidationRule<double>
     {
-        public bool IsValid(int value)
+        public bool IsValid(double value)
         {
-            return value % 2 == 0;
+            return (int)value % 2 == 0;
         }
     }
 
-    public class PositiveIntegerValidationRule : IIntegerValidationRule
+    public class PositiveValidationRule : IValidationRule<double>
     {
-        public bool IsValid(int value)
+        public bool IsValid(double value)
         {
             return value > 0;
         }
