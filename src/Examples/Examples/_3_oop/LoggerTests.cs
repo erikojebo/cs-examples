@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Examples._3_oop._3_abstract;
 using Examples._3_oop._4_composition;
 using Examples._3_oop._5_message_object;
@@ -10,12 +11,26 @@ namespace Examples._3_oop
     public class LoggerTests
     {
         [Test]
-        public void Stuff_goes_here()
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void Exception_is_thrown_when_reading_non_existing_file()
         {
-            var exception = new InvalidOperationException("You can't do that...");
-
             var logger = new LogMessageConsoleLogger();
-            logger.Log(exception);
+
+            ReadFromFile(logger);
+        }
+
+        private void ReadFromFile(ILogger logger)
+        {
+            try
+            {
+                // Throws exception
+                var fileContents = File.ReadAllText("invalid path");
+            }
+            catch (Exception e)
+            {
+                logger.Log(e);
+                throw;
+            }
         }
     }
 }
