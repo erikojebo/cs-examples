@@ -70,6 +70,11 @@
     <Compile Include="_3_oop\_3_abstract\AbstractLoggerBase.cs" />
     <Compile Include="_3_oop\_4_composition\ComposedLogger.cs" />
     <Compile Include="_3_oop\_5_message_object\MessageObjectLoggers.cs" />
+    <Compile Include="_5_linq\_1_linq.cs" />
+    <Compile Include="_5_linq\_2_pitfalls.cs" />
+    <Compile Include="_5_linq\_3_extension_methods.cs" />
+    <Compile Include="_5_linq\_4_Actions.cs" />
+    <Compile Include="_5_linq\Logger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
