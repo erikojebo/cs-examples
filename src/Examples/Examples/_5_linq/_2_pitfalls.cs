@@ -25,7 +25,7 @@ namespace Examples._5_linq
                 Console.WriteLine(s);
             }
             
-            Thread.Sleep(1000);
+            // Thread.Sleep(1000);
 
             foreach (var s in strings)
             {
