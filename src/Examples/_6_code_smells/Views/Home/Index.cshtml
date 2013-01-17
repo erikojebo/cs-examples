@@ -1,0 +1,16 @@
+﻿@model List<Dictionary<string, string>>
+
+@{
+    ViewBag.Title = "Smelling Contacts";
+}
+<h3>Contacts</h3>
+<ol>
+   @foreach (var row in Model)
+   {
+       <li class="contact">
+           <span class="name">@row["FirstName"] @row["LastName"]</span>
+           <a href="mailto:@row["EmailAddress"]">@row["EmailAddress"]</a>
+           <span>@row["PhoneNumber"]</span>
+       </li>       
+   }
+</ol>
