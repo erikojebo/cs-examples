@@ -1,16 +1,28 @@
-﻿@model List<Dictionary<string, string>>
+﻿@model List<Dictionary<string, object>>
 
 @{
     ViewBag.Title = "Smelling Contacts";
 }
 <h3>Contacts</h3>
+<menu>
+    @Html.ActionLink("Work", "Work")
+    @Html.ActionLink("Private", "Private")
+    @Html.ActionLink("All", "Index")
+</menu>
 <ol>
-   @foreach (var row in Model)
-   {
-       <li class="contact">
-           <span class="name">@row["FirstName"] @row["LastName"]</span>
-           <a href="mailto:@row["EmailAddress"]">@row["EmailAddress"]</a>
-           <span>@row["PhoneNumber"]</span>
-       </li>       
-   }
+    @foreach (var row in Model)
+    {
+        <li class="contact">
+            <span class="name">@row["FirstName"] @row["LastName"]</span>
+           
+            <ul>
+                @foreach (var address in (IList<string>)row["EmailAddresses"])
+                {
+                    <li><a href="mailto:@address">@address</a></li>
+                }
+            </ul>    
+           
+            <span>@row["PhoneNumber"]</span>
+        </li>
+    }
 </ol>

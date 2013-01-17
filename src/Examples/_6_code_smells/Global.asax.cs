@@ -30,10 +30,32 @@ namespace _6_code_smells
         private void CreateDummyData()
         {
             var fileContent = @"<Contacts>
-    <Contact FirstName='Kalle' LastName='Karlsson' PhoneNumber='555-123456' EmailAddress='kalle.karlsson@swipnet.se' />
-    <Contact FirstName='Pelle' LastName='Svensson' PhoneNumber='555-123456' EmailAddress='pelle.svensson@swipnet.se' />
-    <Contact FirstName='Nisse' LastName='Nilssson' PhoneNumber='555-123456' EmailAddress='nisse.nilssson@swipnet.se' />
-    <Contact FirstName='Sture' LastName='Karlsson' PhoneNumber='555-123456' EmailAddress='sture.karlsson@swipnet.se' />
+  <Contact FirstName='Kalle' LastName='Karlsson' PhoneNumber='555-123456'>
+    <EmailAddresses>
+      <EmailAddress Type='1'>kalle.karlsson@swipnet.se</EmailAddress>
+    </EmailAddresses>
+  </Contact>
+  <Contact FirstName='Pelle' LastName='Svensson' PhoneNumber='555-123456'>
+    <EmailAddresses>
+      <EmailAddress Type='1'>pelle.svensson@swipnet.se</EmailAddress>
+    </EmailAddresses>
+    <EmailAddresses>
+      <EmailAddress Type='2'>pelle.svensson@acme.se</EmailAddress>
+    </EmailAddresses>
+  </Contact>
+  <Contact FirstName='Nisse' LastName='Nilssson' PhoneNumber='555-123456'>
+    <EmailAddresses>
+      <EmailAddress Type='1'>nisse.nilssson@swipnet.se</EmailAddress>
+    </EmailAddresses>
+  </Contact>
+  <Contact FirstName='Sture' LastName='Karlsson' PhoneNumber='555-123456'>
+    <EmailAddresses>
+      <EmailAddress Type='1'>sture.karlsson@swipnet.se</EmailAddress>
+    </EmailAddresses>
+    <EmailAddresses>
+      <EmailAddress Type='2'>sture@karlssoncorp.com</EmailAddress>
+    </EmailAddresses>
+  </Contact>
 </Contacts>";
 
             const string fileName = "_6_code_smells.xml";

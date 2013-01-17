@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 
@@ -12,26 +11,186 @@ namespace _6_code_smells.Controllers
     {
         public ActionResult Index()
         {
+            // Load the xml document
             var path = Path.Combine(Path.GetTempPath(), "_6_code_smells.xml");
             var xml = System.IO.File.ReadAllText(path);
             var document = XDocument.Parse(xml);
 
 
-            var contactNodes = document.Descendants("Contact")
-                                       .Select(x =>
-                                           {
-                                               var dictionary = new Dictionary<string, string>();
+            // Parse contacts
+            try
+            {
+                var contactNodes = document.Descendants("Contact")
+                                           .Select(x =>
+                                               {
+                                                   var dictionary = new Dictionary<string, object>();
 
-                                               dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
-                                               dictionary["LastName"] = x.Attribute("LastName").Value;
-                                               dictionary["FirstName"] = x.Attribute("FirstName").Value;
-                                               dictionary["EmailAddress"] = x.Attribute("EmailAddress").Value;
 
-                                               return dictionary;
-                                           }).OrderBy(x => x["LastName"])
+                                                   // Parse name
+                                                   dictionary["LastName"] = x.Attribute("LastName").Value;
+                                                   dictionary["FirstName"] = x.Attribute("FirstName").Value;
+
+
+                                                   dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
+
+
+                                                   // Parse email addresses
+                                                   var emailAddresses = new List<string>();
+
+                                                   foreach (var emailAddress in x.Descendants("EmailAddress"))
+                                                   {
+                                                       emailAddresses.Add(emailAddress.Value);
+                                                   }
+
+                                                   dictionary["EmailAddresses"] = emailAddresses;
+
+
+                                                   return dictionary;
+                                               })
+                                           .OrderBy(x => x["LastName"])
+                                           .ThenBy(x => x["FirstName"])
                                            .ToList();
 
-            return View(contactNodes);
+                return View(contactNodes);
+            }
+            catch (Exception e)
+            {
+                // Write log message
+                var lp = GetPath();
+                using (var stream = new FileStream(lp, FileMode.Append, FileAccess.Write))
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, e.Message));
+                }
+                ViewBag.Message = "Något gick snett när kontakterna skulle laddas...";
+                return View("Error");
+            }
+        }
+
+        public ActionResult Private()
+        {
+            // Load the xml document
+            var path = Path.Combine(Path.GetTempPath(), "_6_code_smells.xml");
+            var xml = System.IO.File.ReadAllText(path);
+            var document = XDocument.Parse(xml);
+
+
+            // Parse contacts
+            try
+            {
+                var contactNodes = document.Descendants("Contact")
+                                           .Select(x =>
+                                               {
+                                                   var dictionary = new Dictionary<string, object>();
+
+
+                                                   // Parse name
+                                                   dictionary["LastName"] = x.Attribute("LastName").Value;
+                                                   dictionary["FirstName"] = x.Attribute("FirstName").Value;
+
+
+                                                   dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
+
+
+                                                   // Parse email addresses
+                                                   var emailAddresses = new List<string>();
+
+                                                   foreach (var emailAddress in x.Descendants("EmailAddress"))
+                                                   {
+                                                       if (emailAddress.Attribute("Type").Value == "1")
+                                                           emailAddresses.Add(emailAddress.Value);
+                                                   }
+
+                                                   dictionary["EmailAddresses"] = emailAddresses;
+
+
+                                                   return dictionary;
+                                               })
+                                           .OrderBy(x => x["LastName"])
+                                           .ThenBy(x => x["FirstName"])
+                                           .ToList();
+
+                return View("Index", contactNodes);
+            }
+            catch (Exception e)
+            {
+                // Write log message
+                var lp = GetPath();
+                using (var stream = new FileStream(lp, FileMode.Append, FileAccess.Write))
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, e.Message));
+                }
+                ViewBag.Message = "Något gick snett när de privata kontakterna skulle laddas...";
+                return View("Error");
+            }
+        }
+
+        public ActionResult Work()
+        {
+            // Load the xml document
+            var path = Path.Combine(Path.GetTempPath(), "_6_code_smells.xml");
+            var xml = System.IO.File.ReadAllText(path);
+            var document = XDocument.Parse(xml);
+
+
+            try
+            {
+                // Parse contacts
+                var contactNodes = document.Descendants("Contact")
+                                           .Select(x =>
+                                               {
+                                                   var dictionary = new Dictionary<string, object>();
+
+
+                                                   // Parse name
+                                                   dictionary["LastName"] = x.Attribute("LastName").Value;
+                                                   dictionary["FirstName"] = x.Attribute("FirstName").Value;
+
+
+                                                   dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
+
+
+                                                   // Parse email addresses
+                                                   var emailAddresses = new List<string>();
+
+                                                   foreach (var emailAddress in x.Descendants("EmailAddress"))
+                                                   {
+                                                       if (emailAddress.Attribute("Type").Value == "2")
+                                                           emailAddresses.Add(emailAddress.Value);
+                                                   }
+
+                                                   dictionary["EmailAddresses"] = emailAddresses;
+
+
+                                                   return dictionary;
+                                               })
+                                           .OrderBy(x => x["LastName"])
+                                           .ThenBy(x => x["FirstName"])
+                                           .ToList();
+
+                return View("Index", contactNodes);
+            }
+            catch (Exception e)
+            {
+                // Write log message
+                var lp = GetPath();
+                using (var stream = new FileStream(lp, FileMode.Append, FileAccess.Write))
+                using (var writer = new StreamWriter(stream))
+                {
+                    writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, e.Message));
+                }
+
+
+                ViewBag.Message = "Något gick snett när jobbkontakterna skulle laddas...";
+                return View("Error");
+            }
+        }
+
+        // Returns the path to the log file
+        private static string GetPath()
+        {
+            return Path.Combine(Path.GetTempPath(), "_6_code_smells.log");
         }
     }
 }
