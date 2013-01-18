@@ -11,128 +11,112 @@ namespace _6_code_smells.Controllers
     {
         public ActionResult Index()
         {
-            // Load the xml document
-            var path = Path.Combine(Path.GetTempPath(), "_6_code_smells.xml");
-            var xml = System.IO.File.ReadAllText(path);
-            var document = XDocument.Parse(xml);
+            var document = LoadXmlDocument();
 
-
-            // Parse contacts
             try
             {
-                var contactNodes = document.Descendants("Contact")
-                                           .Select(x =>
-                                               {
-                                                   var dictionary = new Dictionary<string, object>();
-
-
-                                                   // Parse name
-                                                   dictionary["LastName"] = x.Attribute("LastName").Value;
-                                                   dictionary["FirstName"] = x.Attribute("FirstName").Value;
-
-
-                                                   dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
-
-
-                                                   // Parse email addresses
-                                                   var emailAddresses = new List<string>();
-
-                                                   foreach (var emailAddress in x.Descendants("EmailAddress"))
-                                                   {
-                                                       emailAddresses.Add(emailAddress.Value);
-                                                   }
-
-                                                   dictionary["EmailAddresses"] = emailAddresses;
-
-
-                                                   return dictionary;
-                                               })
-                                           .OrderBy(x => x["LastName"])
-                                           .ThenBy(x => x["FirstName"])
-                                           .ToList();
+                var contactNodes = ParseContacts(document);
 
                 return View(contactNodes);
             }
             catch (Exception e)
             {
-                // Write log message
-                var lp = GetPath();
-                using (var stream = new FileStream(lp, FileMode.Append, FileAccess.Write))
-                using (var writer = new StreamWriter(stream))
-                {
-                    writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, e.Message));
-                }
-                ViewBag.Message = "Något gick snett när kontakterna skulle laddas...";
-                return View("Error");
+                WriteLogMessage(e);
+
+                return ErrorView("Något gick snett när kontakterna skulle laddas...");
             }
         }
 
         public ActionResult Search(string searchString)
         {
-            // Load the xml document
-            var path = Path.Combine(Path.GetTempPath(), "_6_code_smells.xml");
-            var xml = System.IO.File.ReadAllText(path);
-            var document = XDocument.Parse(xml);
+            var document = LoadXmlDocument();
 
-
-            // Parse contacts
             try
             {
-                var contactNodes = document.Descendants("Contact")
-                                           .Where(x =>
-                                               {
-                                                   return x.Attribute("FirstName").Value.ToLower().Contains(searchString.ToLower()) ||
-                                                       x.Attribute("LastName").Value.ToLower().Contains(searchString.ToLower()) ||
-                                                       x.Descendants("EmailAddress").Any(e => x.Value.ToLower().Contains(searchString.ToLower()));
-                                               })
-                                           .Select(x =>
-                                               {
-                                                   var dictionary = new Dictionary<string, object>();
+                var contacts = ParseContacts(document);
 
+                var filteredContacts = FilterContacs(searchString, contacts);
 
-                                                   // Parse name
-                                                   dictionary["LastName"] = x.Attribute("LastName").Value;
-                                                   dictionary["FirstName"] = x.Attribute("FirstName").Value;
-
-
-                                                   dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
-
-
-                                                   // Parse email addresses
-                                                   var emailAddresses = new List<string>();
-
-                                                   foreach (var emailAddress in x.Descendants("EmailAddress"))
-                                                   {
-                                                       emailAddresses.Add(emailAddress.Value);
-                                                   }
-
-                                                   dictionary["EmailAddresses"] = emailAddresses;
-
-
-                                                   return dictionary;
-                                               })
-                                           .OrderBy(x => x["LastName"])
-                                           .ThenBy(x => x["FirstName"])
-                                           .ToList();
-
-                return View("Index", contactNodes);
+                return View("Index", filteredContacts);
             }
             catch (Exception e)
             {
-                // Write log message
-                var lp = GetPath();
-                using (var stream = new FileStream(lp, FileMode.Append, FileAccess.Write))
-                using (var writer = new StreamWriter(stream))
-                {
-                    writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, e.Message));
-                }
-                ViewBag.Message = "Något gick snett när de privata kontakterna skulle laddas...";
-                return View("Error");
+                return ErrorView("Något gick snett under sökningen");
             }
         }
 
-        // Returns the path to the log file
-        private static string GetPath()
+        private List<Dictionary<string, object>> FilterContacs(string searchString, IEnumerable<Dictionary<string, object>> contact)
+        {
+            var filteredContacts = contact.Where(x => Matches(searchString, x["FirstName"]) || Matches(searchString, x["LastName"]) ||
+                                                      ((List<string>)x["EmailAddresses"]).Any(e => Matches(searchString, e))).ToList();
+            return filteredContacts;
+        }
+
+        private ActionResult ErrorView(string message)
+        {
+            ViewBag.Message = message;
+            return View("Error");
+        }
+
+        private static void WriteLogMessage(Exception e)
+        {
+            var logFilePath = GetLogFilePath();
+
+            using (var stream = new FileStream(logFilePath, FileMode.Append, FileAccess.Write))
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.WriteLine(string.Format("{0}: {1}", DateTime.Now, e.Message));
+            }
+        }
+
+        private bool Matches(string searchString, object value)
+        {
+            return ((string)value).ToLower().Contains(searchString.ToLower());
+        }
+
+        private static XDocument LoadXmlDocument()
+        {
+            var path = Path.Combine(Path.GetTempPath(), "_6_code_smells.xml");
+            var xml = System.IO.File.ReadAllText(path);
+            return XDocument.Parse(xml);
+        }
+
+        private static List<Dictionary<string, object>> ParseContacts(XDocument document)
+        {
+            var contactNodes = document.Descendants("Contact")
+                                       .Select(x =>
+                                           {
+                                               var dictionary = new Dictionary<string, object>();
+
+
+                                               // Parse name
+                                               dictionary["LastName"] = x.Attribute("LastName").Value;
+                                               dictionary["FirstName"] = x.Attribute("FirstName").Value;
+
+
+                                               dictionary["PhoneNumber"] = x.Attribute("PhoneNumber").Value;
+
+
+                                               // Parse email addresses
+                                               var emailAddresses = new List<string>();
+
+                                               foreach (var emailAddress in x.Descendants("EmailAddress"))
+                                               {
+                                                   emailAddresses.Add(emailAddress.Value);
+                                               }
+
+                                               dictionary["EmailAddresses"] = emailAddresses;
+
+
+                                               return dictionary;
+                                           })
+                                       .OrderBy(x => x["LastName"])
+                                       .ThenBy(x => x["FirstName"])
+                                       .ToList();
+            return contactNodes;
+        }
+
+        private static string GetLogFilePath()
         {
             return Path.Combine(Path.GetTempPath(), "_6_code_smells.log");
         }
