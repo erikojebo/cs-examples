@@ -1,4 +1,4 @@
-﻿@model List<Dictionary<string, object>>
+﻿@model List<_6_code_smells.Models.Contact>
 
 @{
     ViewBag.Title = "Smelling Contacts";
@@ -19,16 +19,16 @@
     @foreach (var row in Model)
     {
         <li class="contact">
-            <span class="name">@row["FirstName"] @row["LastName"]</span>
+            <span class="name">@row.FirstName @row.LastName</span>
            
             <ul>
-                @foreach (var address in (IList<string>)row["EmailAddresses"])
+                @foreach (var address in row.EmailAddresses)
                 {
                     <li><a href="mailto:@address">@address</a></li>
                 }
             </ul>    
            
-            <span>@row["PhoneNumber"]</span>
+            <span>@row.PhoneNumber</span>
         </li>
     }
 </ol>
