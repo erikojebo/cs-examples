@@ -5,9 +5,15 @@
 }
 <h3>Contacts</h3>
 <menu>
-    @Html.ActionLink("Work", "Work")
-    @Html.ActionLink("Private", "Private")
     @Html.ActionLink("All", "Index")
+    
+    <div>
+        @using (Html.BeginForm("Search", "Home"))
+        {
+            <input type="text" name="searchString"/>
+            <input type="submit" value="Search"/>
+        }
+    </div>
 </menu>
 <ol>
     @foreach (var row in Model)
