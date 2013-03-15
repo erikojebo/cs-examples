@@ -1,0 +1,10 @@
+﻿<Window x:Class="_7_async_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel LastChildFill="True">
+        <Button DockPanel.Dock="Top" Click="ButtonBase_OnClick">Calculate</Button>
+        <ProgressBar DockPanel.Dock="Bottom" Height="20" x:Name="ProgressBar" />
+        <TextBlock x:Name="ResultTextBlock" />
+    </DockPanel>
+</Window>
