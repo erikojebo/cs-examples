@@ -13,7 +13,10 @@ namespace _7_async_wpf
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            CalculateAsyncTplOnlyCorrect();
+            Calculate();
+            //CalculateAsync();
+            //CalculateAsyncTplOnlyWithBugs();
+            //CalculateAsyncTplOnlyCorrect();
         }
 
         private void Calculate()
@@ -67,9 +70,9 @@ namespace _7_async_wpf
             client.GetStringAsync("http://www.google.com")
                   .ContinueWith(t =>
                       {
-                          Application.Current.Dispatcher.BeginInvoke((Action)(() => ResultTextBlock.Text = t.Result));
+                          Application.Current.Dispatcher.BeginInvoke((Action)(() => { ProgressBar.IsIndeterminate = false; ResultTextBlock.Text = t.Result; }));
                           client.Dispose();
-                          ProgressBar.IsIndeterminate = false;
+                          
                       });
         }
     }

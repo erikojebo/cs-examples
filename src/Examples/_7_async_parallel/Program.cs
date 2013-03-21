@@ -19,6 +19,7 @@ namespace _7_async_parallel
 
             //CallTasksSynchronously();
             //CallTasksAsync();
+            //CallTasksUsingTpl();
             //CallTasksWithReturnValuesAsync();
             //CallTasksWithReturnValuesUsingOldSchoolTpl();
 
@@ -28,7 +29,7 @@ namespace _7_async_parallel
             Signal.WaitOne();
         }
 
-        private async static void CallTasksSynchronously()
+        private static void CallTasksSynchronously()
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -59,7 +60,7 @@ namespace _7_async_parallel
             Signal.Set();
         }
         
-        private async static void CallTasksUsingTpl()
+        private static void CallTasksUsingTpl()
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
